@@ -2,9 +2,9 @@ import math
 
 def main():
     a, b, c, d = map(int, input().split())
-    if b < c:
+    if b < (c * d):
         ans = math.ceil(a / (d*c -b))
-    elif b >= c:
+    elif b >= (c * d):
         ans = -1
     else:
         raise
