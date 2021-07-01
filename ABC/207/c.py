@@ -1,31 +1,28 @@
 
 def main():
     N = int(input())
-    tlr = [list(map(int, input().split())) for _ in range(N)]
-    span_max = float('inf')
-    span_min = -float('inf')
+    l = [0] * N
+    r = [0] * N
 
-    for t, l, r in tlr:
+    for i in range(N):
+        t, l[i], r[i] = map(int, input().split())
         if t == 1:
             pass
         elif t == 2:
-            r -= 1
+            r[i] -= 0.5
         elif t == 3:
-            l += 1
+            l[i] += 0.5
         elif t == 4:
-            l += 1
-            r -= 1
+            l[i] += 0.5
+            r[i] -= 0.5
         else:
             raise
-        span_max = min(span_max, r)
-        span_min = max(span_min, l)
 
-    print(span_min, span_max)
-    if span_min > span_max:
-        ans = 0
-    else:
-        ans = span_max - span_min
-
+    ans = 0
+    for i in range(N):
+        for j in range(i+1, N):
+            if max(l[i], l[j]) <= min(r[i], r[j]):
+                ans += 1
     print(ans)
 
 if __name__ == '__main__':
