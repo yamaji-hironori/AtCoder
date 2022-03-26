@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+using vll = vector<ll>;
+using vvll = vector<vll>;
 
 #ifdef _DEBUG
 #define debug(x) cout<<#x<<": "<<x<<endl
