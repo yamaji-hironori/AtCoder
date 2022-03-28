@@ -39,29 +39,18 @@ int main(){
     multiset<ll> S;
     size_t j = 0;
     for (ll i=0;i<N;i++) {
-        ll i_A = AB.at(i).at(0);
-        ll i_B = AB.at(i).at(1);
-        for (ll k=j;k<M;k++) {
-            ll k_C = CD.at(k).at(0);
-            ll k_D = CD.at(k).at(1);
-            debug(i_A);
-            debug(k_C);
-            if (i_A <= k_C) {
-                S.insert(k_D);
-                debug("insert!: "+to_string(k_D));
-            } else {
-                break;
-            }
+        while (j<M and AB[i][0]<=CD[j][0]) {
+            S.insert(CD[j][1]);
             j++;
         }
-        if (S.lower_bound(i_B) == S.end()) {
+        if (S.lower_bound(AB[i][1]) == S.end()) {
             cout << "No" << endl;
             return 0;
         } else {
-            debug(*S.lower_bound(i_B));
-            S.erase(*S.lower_bound(i_B));
+            S.erase(*S.lower_bound(AB[i][1]));
         }
     }
     cout << "Yes" << endl;
     return 0;
 }
+
