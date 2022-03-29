@@ -15,46 +15,36 @@ using vvll = vector<vll>;
 #endif
 
 #define rep(i,n) for(size_t i=0;i<(n);++i)
+struct HW {
+    ll H=0,W=0;
+};
 int main(){
     ll N, M;
     cin >> N >> M;
-    vvll AB(N, vll(2)), CD(M, vll(2));
+    vector<HW> Choco(N), Box(M);
     rep(i, N) {
-        cin >> AB.at(i).at(0);
+        cin >> Choco.at(i).H;
     }
     rep(i, N) {
-        cin >> AB.at(i).at(1);
+        cin >> Choco.at(i).W;
     }
     rep(i, M) {
-        cin >> CD.at(i).at(0);
+        cin >> Box.at(i).H;
     }
     rep(i, M) {
-        cin >> CD.at(i).at(1);
+        cin >> Box.at(i).W;
     }
-    sort(AB.begin(), AB.end(), [&](vll first, vll second){return first.at(0) > second.at(0);});
-    sort(CD.begin(), CD.end(), [&](vll first, vll second){return first.at(0) > second.at(0);});
-    debug_vecvec(AB);
-    debug_vecvec(CD);
+    sort(Choco.begin(), Choco.end(), [&](HW first, HW second){return first.H > second.H;});
+    sort(Box.begin(), Box.end(), [&](HW first, HW second){return first.H > second.H;});
 
     multiset<ll> S;
-    size_t j = 0;
+    ll j = 0;
     for (ll i=0;i<N;i++) {
-        ll i_A = AB.at(i).at(0);
-        ll i_B = AB.at(i).at(1);
-        for (ll k=j;k<M;k++) {
-            ll k_C = CD.at(k).at(0);
-            ll k_D = CD.at(k).at(1);
-            debug(i_A);
-            debug(k_C);
-            if (i_A <= k_C) {
-                S.insert(k_D);
-                debug("insert!: "+to_string(k_D));
-            } else {
-                break;
-            }
+        while (j<M and Choco[i].H<=Box[j].H) {
+            S.insert(Box[j].W);
             j++;
         }
-        auto iter = S.lower_bound(i_B);
+        auto iter = S.lower_bound(Choco[i].W);
         if (iter == S.end()) {
             cout << "No" << endl;
             return 0;
@@ -65,3 +55,4 @@ int main(){
     cout << "Yes" << endl;
     return 0;
 }
+
